@@ -161,6 +161,15 @@
 
     <script>
     const btn = document.getElementById("MyButton");
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const hamburger = document.querySelector(".hamburger-menu");
+        const topnav = document.querySelector(".topnav");
+    
+        hamburger.addEventListener("click", () => {
+            topnav.classList.toggle("active");
+        });
+    });
     </script>
 
 </body>
