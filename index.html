@@ -106,23 +106,27 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             const loader = document.getElementById("loader");
-    
+        
             // ซ่อน Loader หลังจากหน้าโหลดเสร็จ
             window.addEventListener("load", () => {
                 loader.classList.add("hidden");
             });
-    
+        
+            // จัดการเมื่อผู้ใช้กดย้อนกลับหรือเดินหน้า
+            window.addEventListener("popstate", () => {
+                loader.classList.add("hidden"); // ซ่อน Loader ทันที
+            });
+        
             // แสดง Loader เมื่อคลิกลิงก์เปลี่ยนหน้า
             document.querySelectorAll("a").forEach(link => {
                 link.addEventListener("click", (event) => {
                     const href = link.getAttribute("href");
-    
+        
                     // ตรวจสอบว่าลิงก์นั้นเป็น Anchor Link หรือไม่
                     if (href && href.startsWith("#")) {
-                        // ถ้าเป็น Anchor Link ให้เลื่อนไปตำแหน่งโดยไม่แสดง Loader
-                        return;
+                        return; // ลิงก์ภายในหน้า ไม่ต้องแสดง Loader
                     }
-    
+        
                     // ตรวจสอบว่าไม่ใช่ลิงก์แบบเปิดแท็บใหม่หรือ URL ว่าง
                     if (link.target !== "_blank" && href) {
                         event.preventDefault(); // ป้องกันการเปลี่ยนหน้าทันที
