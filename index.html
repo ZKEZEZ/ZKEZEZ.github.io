@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div id="loader" class="loader-container">
+        <div class="loader"></div>
+    </div>
+    
+
     <header class="topnav">
         <div class="container">
             <div class="hamburger-menu">
@@ -98,6 +103,37 @@
             }
         }
         typeWriter();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const loader = document.getElementById("loader");
+    
+            // ซ่อน Loader หลังจากหน้าโหลดเสร็จ
+            window.addEventListener("load", () => {
+                loader.classList.add("hidden");
+            });
+    
+            // แสดง Loader เมื่อคลิกลิงก์เปลี่ยนหน้า
+            document.querySelectorAll("a").forEach(link => {
+                link.addEventListener("click", (event) => {
+                    const href = link.getAttribute("href");
+    
+                    // ตรวจสอบว่าลิงก์นั้นเป็น Anchor Link หรือไม่
+                    if (href && href.startsWith("#")) {
+                        // ถ้าเป็น Anchor Link ให้เลื่อนไปตำแหน่งโดยไม่แสดง Loader
+                        return;
+                    }
+    
+                    // ตรวจสอบว่าไม่ใช่ลิงก์แบบเปิดแท็บใหม่หรือ URL ว่าง
+                    if (link.target !== "_blank" && href) {
+                        event.preventDefault(); // ป้องกันการเปลี่ยนหน้าทันที
+                        loader.classList.remove("hidden");
+                        setTimeout(() => {
+                            window.location.href = href; // เปลี่ยนหน้า
+                        }, 500); // Delay ให้เอฟเฟกต์ Loader ทำงาน
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
