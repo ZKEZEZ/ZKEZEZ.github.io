@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page2</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <header class="topnav">
+        <div class="container">
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav class="nav-left">
+                <a href="#Home">Home</a>
+                <a href="#About">About</a>
+                <a href="#Contact">Contact</a>
+            </nav>
+            <nav class="nav-right">
+                <a href="../index.html">Index</a>
+            </nav>
+        </div>
+    </header>
+
+    <a name = "Home"></a>
+    <section class="banner">
+        <img src="https://img.freepik.com/premium-vector/web-development-coding-programming-futuristic-banner-computer-code-laptop_3482-5582.jpg" alt="Chinese New Year Banner">
+        <div class="banner-text">
+            <h1>Hi Welcome to Tale Portfolio</h1>
+            <p>I'm are front-end developer</p>
+        </div>
+    </section>
+
+    <main class="content container">
+        <div class="center">
+            <div class="container">
+                    <div class="righttext">
+                        <a name = "About"></a>
+                        <h3>Welcome to Our Portfolio</h3>
+                        <p>
+                            เราคือทีมพัฒนาที่มุ่งเน้นสร้างผลงานด้าน Frontend Development ที่ทันสมัยและตอบโจทย์ผู้ใช้งานอย่างแท้จริงที่นี่คุณจะได้พบกับผลงานที่แสดงให้เห็นถึงทักษะ ความคิดสร้างสรรค์ และความใส่ใจในรายละเอียด                        </p>
+                    </div>
+
+                    <h3>MyName</h3>
+                    <div class="grid-container">
+                        <article class="card_article">
+                            <img src="pic/1.jpg" alt="Nattarat" class="card_image2">
+                            <div class="card_data">
+                                <span class="card_description">We are front-end developer</span>
+                                <h2 class="card_title">Nattarat Sampao</h2>
+                            </div>
+                        </article>
+                    </div>
+
+                    <h3>School</h3>
+                    <div class="grid-container">
+                        <article class="card_article">
+                            <img src="pic/11.png" alt="junior high school" class="card_image">
+                            <div class="card_data">
+                                <span class="card_description">junior high school</span>
+                                <h2 class="card_title">Chainatpittayakom</h2>
+                            </div>
+                        </article>
+
+                        <article class="card_article">
+                            <img src="pic/12.png" alt="Now" class="card_image">
+                            <div class="card_data">
+                                <span class="card_description">School Now</span>
+                                <h2 class="card_title">princess chulabhorn science high school lopburi</h2>
+                            </div>
+                        </article>
+
+                        <article class="card_article">
+                            <img src="pic/13.png" alt="Goal" class="card_image">
+                            <div class="card_data">
+                                <span class="card_description">MyGoal</span>
+                                <h2 class="card_title">King Mongkut's Institute of Technology Ladkrabang</h2>
+                            </div>
+                        </article>
+                    </div>
+
+                    <h3>Skill</h3>
+                    <div class="grid-container">
+                        <article class="card_article">
+                            <img src="pic/3.png" alt="Html" class="card_image">
+                            <div class="card_data">
+                                <span class="card_description">80% Html</span>
+                                <h2 class="card_title">Html</h2>
+                            </div>
+                        </article>
+
+                        <article class="card_article">
+                            <img src="pic/4.png" alt="Css" class="card_image">
+                            <div class="card_data">
+                                <span class="card_description">60% Css</span>
+                                <h2 class="card_title">Css</h2>
+                            </div>
+                        </article>
+
+                        <article class="card_article">
+                            <img src="pic/5.png" alt="javaScript" class="card_image">
+                            <div class="card_data">
+                                <span class="card_description">20% javaScript</span>
+                                <h2 class="card_title">javaScript</h2>
+                            </div>
+                        </article>
+
+                        <article class="card_article">
+                            <img src="pic/6.png" alt="C" class="card_image">
+                            <div class="card_data">
+                                <span class="card_description">40% C</span>
+                                <h2 class="card_title">C</h2>
+                            </div>
+                        </article>
+
+                        <article class="card_article">
+                            <img src="pic/7.png" alt="C#" class="card_image">
+                            <div class="card_data">
+                                <span class="card_description">80% C#</span>
+                                <h2 class="card_title">C#</h2>
+                            </div>
+                        </article>
+
+                        <article class="card_article">
+                            <img src="pic/8.png" alt="C++" class="card_image">
+                            <div class="card_data">
+                                <span class="card_description">60% C</span>
+                                <h2 class="card_title">C++</h2>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    <footer class="footer">
+            <a name = "Contact"></a>
+    
+            <h2>Contact</h2>
+            <a href="https://www.facebook.com/"><img src="pic/9.png"></a>
+            <a href="https://www.instagram.com/"><img src="pic/10.png"></a>
+        </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const hamburger = document.querySelector(".hamburger-menu");
+            const topnav = document.querySelector(".topnav");
+        
+            hamburger.addEventListener("click", () => {
+                topnav.classList.toggle("active");
+            });
+        });
+    </script>
+</body>
+</html>

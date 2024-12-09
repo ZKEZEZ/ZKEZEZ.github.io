@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topnav">
+        <div class="container">
+            <div class="hamburger-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <nav class="nav-left">
+                <a href="#Home">Home</a>
+                <a href="#About">About</a>
+                <a href="#Contact">Contact</a>
+            </nav>
+            <nav class="nav-right">
+                <a href="index.html">Index</a>
+            </nav>
+        </div>
+    </header>
+    <a name = "Home"></a>
+    <section class="banner">
+        <img src="pic/14.jpg" alt="Banner">
+        <div class="banner-text">
+            <h1>Hi Welcome to Portfolio </h1>
+            <p>We are front-end developer</p>
+        </div>
+    </section>
+
+    <main class="content container">
+        <div class="center">
+            <div class="container">
+                    <div class="righttext">
+                        <a name = "About"></a>
+                        <h3>Welcome to Our Portfolio</h3>
+                        <p>
+                            เราคือทีมพัฒนาที่มุ่งเน้นสร้างผลงานด้าน Frontend Development ที่ทันสมัยและตอบโจทย์ผู้ใช้งานอย่างแท้จริงที่นี่คุณจะได้พบกับผลงานที่แสดงให้เห็นถึงทักษะ ความคิดสร้างสรรค์ และความใส่ใจในรายละเอียด                        </p>
+                    </div>
+
+                    <h3>Our!</h3>
+                    
+                    <div class="grid-container">
+                        <article class="card_article">
+                            <img src="pic/2.jpg" alt="มีมี่" class="card_image">
+                            <div class="card_data">
+                                <span class="card_description">We are front-end developer</span>
+                                <h2 class="card_title">มีมี่</h2>
+                                <a href="member1/page1.html" class="card_button">Read more</a>
+                            </div>
+                        </article>
+
+                        <article class="card_article">
+                            <img src="pic/1.jpg" alt="ทะเล" class="card_image">
+                            <div class="card_data">
+                                <span class="card_description">We are front-end developer</span>
+                                <h2 class="card_title">ทะเล</h2>
+                                <a href="member2/page2.html" class="card_button">Read more</a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    <footer class="footer">
+        <a name = "Contact"></a>
+
+        <h2>Contact</h2>
+        <a href="https://www.facebook.com/"><img src="pic/9.png"></a>
+        <a href="https://www.instagram.com/"><img src="pic/10.png"></a>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const hamburger = document.querySelector(".hamburger-menu");
+            const topnav = document.querySelector(".topnav");
+        
+            hamburger.addEventListener("click", () => {
+                topnav.classList.toggle("active");
+            });
+        });
+
+        const bannerText = document.querySelector(".banner-text h1");
+        const message = "Hi Welcome to Portfolio";
+        let index = 0;
+        
+        function typeWriter() {
+            if (index < message.length) {
+                bannerText.textContent += message[index];
+                index++;
+                setTimeout(typeWriter, 100); 
+            }
+        }
+        typeWriter();
+    </script>
+</body>
+</html>
