@@ -29,7 +29,6 @@
             </nav>
         </div>
     </header>
-        
 
     <div class="container content">
         <div class="center">
@@ -84,29 +83,35 @@
             <h4>Skill</h4>
             <div class="grid-container">
             <article class="card_article">
-                <img src="5.png" alt="มีมี่" class="card_image">
+                <img src="5.png" alt="Html" class="card_image">
                 <div class="card_data">
-                    <span class="card_description">Skill</span>
-                    <h2 class="card_title">HTML</h2>
-                    <a href="#home" class="card_button">Home</a>
+                    <h2 class="card_title">Html</h2>
+                    <div class="skill-bar">
+                        <div class="skill-bar-fill html" style="width: 80%"></div>
+                    </div>
+                    <span class="card_description">80%</span>
                 </div>
             </article>
 
             <article class="card_article">
-                <img src="6.png" alt="ทะเล" class="card_image">
+                <img src="6.png" alt="Css" class="card_image">
                 <div class="card_data">
-                    <span class="card_description">Skill</span>
-                    <h2 class="card_title">CSS</h2>
-                    <a href="#about" class="card_button">About</a>
+                    <h2 class="card_title">Css</h2>
+                    <div class="skill-bar">
+                        <div class="skill-bar-fill js" style="width: 60%"></div>
+                    </div>
+                    <span class="card_description">60%</span>
                 </div>
             </article>
 
             <article class="card_article">
-                <img src="7.png" alt="ทะเล" class="card_image">
+                <img src="7.png" alt="javaScript" class="card_image">
                 <div class="card_data">
-                    <span class="card_description">Skill</span>
-                    <h2 class="card_title">Javascript</h2>
-                    <a href="#contact" class="card_button">Contact</a>
+                    <h2 class="card_title">javaScript</h2>
+                    <div class="skill-bar">
+                        <div class="skill-bar-fill css" style="width: 20%"></div>
+                    </div>
+                    <span class="card_description">20%</span>
                 </div>
             </article>
         </div>
@@ -147,6 +152,8 @@
             </article>
         </div>
     </section>
+
+    
 </div>
     </div>
 
@@ -160,11 +167,18 @@
         
     </div>
     </section>
-    
-
 
     <script>
     const btn = document.getElementById("MyButton");
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const hamburger = document.querySelector(".hamburger-menu");
+        const topnav = document.querySelector(".topnav");
+    
+        hamburger.addEventListener("click", () => {
+            topnav.classList.toggle("active");
+        });
+    });
 
     document.addEventListener("DOMContentLoaded", () => {
         const loader = document.getElementById("loader");

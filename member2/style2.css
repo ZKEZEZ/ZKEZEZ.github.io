@@ -283,6 +283,47 @@ body {
     background-color: #D55C4D;
 }
 
+/* Skill Bar Container */
+.skill-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    margin: 10px 0;
+    overflow: hidden;
+}
+
+/* Skill Bar Fill */
+.skill-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s ease-in-out;
+}
+
+.skill-bar-fill.html {
+    background-color: #FF6F61;
+}
+
+.skill-bar-fill.css {
+    background-color: #007BFF;
+}
+
+.skill-bar-fill.js {
+    background-color: #FFCC00;
+}
+
+.skill-bar-fill.c {
+    background-color: #28a745;
+}
+
+.skill-bar-fill.csharp {
+    background-color: #9B4D96;
+}
+
+.skill-bar-fill.cpp {
+    background-color: #6f42c1;
+}
+
 /* Footer */
 .footer {
     text-align: center;

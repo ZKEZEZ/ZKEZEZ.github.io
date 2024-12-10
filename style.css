@@ -181,13 +181,16 @@ body {
 }
 
 .center h3 {
-    font-size: 32px;
-    font-weight: bold;
+    font-size: 36px;
+    font-weight: 600;
     color: #333;
     text-align: center;
     position: relative;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase; /* เพิ่มตัวพิมพ์ใหญ่ทั้งหมด */
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 .center h3::after {
@@ -195,16 +198,22 @@ body {
     position: absolute;
     left: 50%;
     bottom: 0;
-    width: 50px;
+    width: 80px;
     height: 4px;
     background-color: #FF6F61;
     transform: translateX(-50%);
-    animation: underline 1s ease-in-out infinite;
+    animation: underline 1.5s ease-in-out infinite;
 }
 
+.center h3:hover {
+    color: #FF6F61;
+    transform: translateY(-8px); /* การเคลื่อนไหวเล็กน้อยเวลาที่ชี้เมาส์ */
+}
+
+/* เพิ่มแอนิเมชันการพิมพ์สำหรับข้อความ */
 @keyframes underline {
     0% { width: 0; }
-    50% { width: 50px; }
+    50% { width: 80px; }
     100% { width: 0; }
 }
 
@@ -294,6 +303,150 @@ body {
     animation: typing 4s steps(30, end), blink 0.7s step-end infinite;
 }
 
+@media (max-width: 768px) {
+    .timeline-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .timeline-date {
+        margin-bottom: 15px;
+        width: 40px;
+        height: 40px;
+        font-size: 16px;
+    }
+
+    .timeline-item::before {
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        height: 2px;
+        width: 100%;
+    }
+}
+
+/* Ball Bounce Animation */
+.ball {
+    width: 50px;
+    height: 50px;
+    background-color: #FF6F61;
+    border-radius: 50%;
+    position: absolute;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-200px);
+    }
+}
+
+    /* Container */
+    .portfolio-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 40px;
+        margin: 0 auto;
+        max-width: 1200px;
+    }
+
+    .portfolio-card {
+        perspective: 1000px; /* Enable 3D effect */
+    }
+
+    .card-inner {
+        width: 100%;
+        height: 350px;
+        transform-style: preserve-3d;
+        transition: transform 0.6s ease;
+        border-radius: 12px;
+    }
+
+    /* Hover effect to flip card */
+    .portfolio-card:hover .card-inner {
+        transform: rotateY(180deg);
+    }
+
+    /* Card front */
+    .card-front, .card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        box-sizing: border-box;
+        text-align: center;
+        font-family: 'Arial', sans-serif;
+    }
+
+    /* Front card style */
+    .card-front {
+        background-color: #f9f9f9;
+        color: #333;
+        border: 1px solid #ddd;
+    }
+
+    .card-front h3 {
+        font-size: 22px;
+        margin: 0;
+        font-weight: bold;
+    }
+
+    .card-front p {
+        font-size: 14px;
+        margin-top: 10px;
+        color: #888;
+    }
+
+    /* Back card style */
+    .card-back {
+        background-color: #fff;
+        transform: rotateY(180deg);
+        color: #333;
+        border: 1px solid #ddd;
+    }
+
+    .card-back h3 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+
+    .card-back p {
+        font-size: 14px;
+        margin-bottom: 20px;
+        color: #555;
+    }
+
+    /* Button style */
+    .view-project {
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .view-project:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
+    /* Shadow effect for subtle depth */
+    .portfolio-card:hover .card-inner {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
 
 /* Footer */
 .footer {
@@ -308,3 +461,5 @@ body {
     width: 50px;
     transition: .4s;
 }
+
+
