@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Message for Bailiw</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js"></script>
+</head>
+<body>
+    <div id="lockScreen" class="lock-screen">
+        <div class="recipient">Cute person, Bailiw</div>
+        <div class="clock">
+            <span id="currentTime">00:00:00</span>
+        </div>
+        <div class="lock-message">Waiting for the perfect moment...</div>
+    </div>
+
+    <div id="mainContent" class="main-content hidden">
+        <div class="swiper messageSwiper">
+            <div class="swiper-wrapper">
+                <!-- First slide - Original message -->
+                <div class="swiper-slide">
+                    <div class="message-card animate__animated">
+                        <div class="message-header">
+                            <div class="recipient-name">Bailiw</div>
+                            <div class="timestamp">08:10 AM, January 1, 2025</div>
+                        </div>
+                        <div class="message-body">
+                            <div id="userMessage" class="user-message"></div>
+                            <div class="swiper imageSwiper">
+                                <div class="swiper-wrapper" id="imageContainer">
+                                    <img src="pic/1.jpg">
+                                </div>
+                            </div>
+                            <div class="heart-container">
+                                <div class="heart"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Second slide - Interactive elements -->
+                <div class="swiper-slide">
+                    <div class="message-card animate__animated">
+                        <div class="interactive-container">
+                            <h2 class="glow-text">Tap the stars!</h2>
+                            <div class="star-field" id="starField"></div>
+                            <div class="floating-hearts" id="floatingHearts"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Third slide - Choice system -->
+                <div class="swiper-slide">
+                    <div class="message-card animate__animated">
+                        <div class="choice-container">
+                            <h2 class="choice-title">Choose Your New Year's Surprise</h2>
+                            <div class="choice-grid">
+                                <div class="choice-card" onclick="handleChoice(0)">
+                                    <div class="choice-icon">❤️</div>
+                                    <h3>Secret</h3>
+                                    <p>ลองคลิกดูดิ ความลับอยากรู้ป่ะละ 🫣</p>
+                                </div>
+                                <div class="choice-card" onclick="handleChoice(1)">
+                                    <div class="choice-icon">🎁</div>
+                                    <h3>Special Surprise</h3>
+                                    <p>ลองคลิกดูดิ ของขวัญสุดเจ๋งง!!</p>
+                                </div>
+                                <div class="choice-card" onclick="handleChoice(2)">
+                                    <div class="choice-icon">🎵</div>
+                                    <h3>Musical Wish</h3>
+                                    <p>ลองคลิกดูดิ เพลงที่อยากให้ฟัง~</p>
+                                </div>
+                            </div>
+                            <div id="choiceResult" class="choice-result hidden">
+                                <div class="result-content"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fourth slide - Comment page -->
+                <div class="swiper-slide">
+                    <div class="message-card animate__animated">
+                        <div class="comment-container">
+                            <h2 class="comment-title">มีอะไรอยากบอกถึงพี่มั้ยครับ?</h2>
+                            <textarea class="comment-input" placeholder="บอกมาได้เลนนะคับบ" rows="5"></textarea>
+                            <button class="submit-comment">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="message-card animate__animated">
+                        <div class="particle-container">
+                            <canvas id="particleCanvas"></canvas>
+                            <div class="final-message">
+                                <h2>Happy New year na kubb! ✨</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Custom Navigation -->
+            <div class="custom-navigation">
+                <button class="nav-button prev-button">
+                    <span class="button-content">
+                        <span class="button-icon">←</span>
+                        <span class="button-text">Previous</span>
+                    </span>
+                </button>
+                <button class="nav-button next-button">
+                    <span class="button-content">
+                        <span class="button-text">Next</span>
+                        <span class="button-icon">→</span>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Custom Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+
+    <div id="testPanel" class="test-panel hiddenM">
+        <button onclick="toggleTestPanel()" class="test-toggle">🔧</button>
+        <div class="test-content">
+            <h3>Test Mode</h3>
+            <textarea id="customMessage" placeholder="Enter your message" rows="4"></textarea>
+            <input type="file" id="imageInput" accept="image/*" multiple>
+            <input type="datetime-local" id="testTime" step="1">
+            <button onclick="setCustomMessage()">Set Message</button>
+            <button onclick="setTestTime()">Set Time</button>
+            <button onclick="resetToRealTime()">Reset to Real Time</button>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('currentTime').textContent = timeString;
+        }
+
+        function handleChoice(index) {
+            const cards = document.querySelectorAll('.choice-card');
+            const result = document.getElementById('choiceResult');
+            const resultContent = result.querySelector('.result-content');
+            
+            cards.forEach(card => card.classList.remove('active'));
+            cards[index].classList.add('active');
+            
+            createChoiceSparkles(cards[index]);
+            
+            const messages = [
+                {
+                    icon: '❤️',
+                    text: "ความลับอ่อออ ไม่มีหรอกอิอิ ยิ้มเยอะๆน้าา คนเก่งของพี่"
+                },
+                {
+                    icon: '🎁',
+                    text: "ของขวัญอืมมม ไม่มีอ่ะ ไปซื้อเองได้ม่ะเดี๋ยวให้ตังค์ ><"
+                },
+                {
+                    icon: '🎵',
+                    text: "มีเพลงอยากแนะนำให้ฟังๆ~~ ระหว่างทาง (Good time) / บอกรัก / เธอยูนีค มันก็เพราะดีแหะๆ"
+                }
+            ];
+            
+            resultContent.innerHTML = `
+                <div class="result-icon">${messages[index].icon}</div>
+                <p class="result-message">${messages[index].text}</p>
+            `;
+            
+            result.classList.remove('hidden');
+            resultContent.classList.add('animate__animated', 'animate__fadeInUp');
+        }
+        
+        function createChoiceSparkles(element) {
+            for (let i = 0; i < 20; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'choice-sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 0.5 + 's';
+                element.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 1000);
+            }
+        }
+
+        function createSparkles() {
+            const sparklesContainer = document.querySelector('.message-card');
+            for (let i = 0; i < 50; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 2 + 's';
+                sparklesContainer.appendChild(sparkle);
+            }
+        }
+
+        function createFireworks() {
+            const colors = ['#FF6F61', '#FFD700', '#FF1493', '#00FF00', '#1E90FF'];
+            setInterval(() => {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.style.left = Math.random() * window.innerWidth + 'px';
+                firework.style.top = Math.random() * window.innerHeight + 'px';
+                firework.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                document.body.appendChild(firework);
+                setTimeout(() => firework.remove(), 1000);
+            }, 300);
+        }
+
+        let useTestTime = false;
+        let testDateTime = null;
+
+        function toggleTestPanel() {
+            const content = document.querySelector('.test-content');
+            content.classList.toggle('active');
+        }
+
+        function setTestTime() {
+            const input = document.getElementById('testTime');
+            if (input.value) {
+                testDateTime = new Date(input.value);
+                useTestTime = true;
+                alert(`Test time set to: ${testDateTime.toLocaleString()}`);
+            }
+        }
+
+        function resetToRealTime() {
+            useTestTime = false;
+            testDateTime = null;
+            alert('Reset to real time');
+        }
+
+        function checkTime() {
+            const now = useTestTime ? testDateTime : new Date();
+            const targetTime = new Date('2025-01-01T08:10:00+07:00');
+            return now >= targetTime;
+        }
+
+        function initializeMessageSwiper() {
+            return new Swiper('.messageSwiper', {
+                effect: 'fade',
+                fadeEffect: { crossFade: true },
+                speed: 800,
+                allowTouchMove: true,
+                navigation: {
+                    nextEl: '.next-button',
+                    prevEl: '.prev-button'
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                    renderBullet: function (index, className) {
+                        const icons = ['✨', '⭐', '🎁', '💫', '🤩'];
+                        return `<div class="custom-bullet ${className}">
+                            <span class="bullet-icon">${icons[index]}</span>
+                            <span class="bullet-text">Page ${index + 1}</span>
+                        </div>`;
+                    }
+                }
+            });
+        }
+
+        function createStarField() {
+            const field = document.getElementById('starField');
+            for (let i = 0; i < 30; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.innerHTML = '⭐';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.onclick = createFloatingHeart;
+                field.appendChild(star);
+            }
+        }
+
+        function createFloatingHeart(e) {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = `${e.clientX}px`;
+            heart.style.top = `${e.clientY}px`;
+            document.getElementById('floatingHearts').appendChild(heart);
+            setTimeout(() => heart.remove(), 2000);
+        }
+
+        function showMainContent() {
+            document.getElementById('lockScreen').classList.add('hidden');
+            const mainContent = document.getElementById('mainContent');
+            mainContent.classList.remove('hidden');
+            mainContent.querySelector('.message-card').classList.add('animate__fadeInUp');
+            
+            const message = localStorage.getItem('love-message') || 
+                "Happy New Year, Bailiw! 🌟\nเจ้าเด็กน้อยย มีความสุขกะปีใหม่เยอะๆ ขอบคุณที่อยู่ทนกะพี่มาตลอดทั้งปีนะคับบ พี่รบกวนใบหลิวไว้เยอะเลย ดูแลตัวเองดีๆด้วยย ที่ใบหลิวป่วยบ่อยยเพราะดูแลตัวเองไม่ดีแน่เลย!! ขอให้ปีใหม่ปีนี้ใบหลิวสมหวังทุกอย่างที่หวังนะคับ มีความสุขยิ้มเย้ออๆนะคับบ ตอนใบหลิวยิ้มน่ารักที่สุดแล่ววว 🫣💖 (ตั้งใจเลือกรูปให้เลยนะอิอิ)";
+            const userMessage = document.getElementById('userMessage');
+            let index = 0;
+            
+            function typeWriter() {
+                if (index < message.length) {
+                    userMessage.innerHTML += message.charAt(index);
+                    index++;
+                    setTimeout(typeWriter, 100);
+                } else {
+                    createSparkles();
+                    createFireworks();
+                }
+            }
+            
+            typeWriter();
+            createStarField();
+        }
+
+        function setCustomMessage() {
+            const message = document.getElementById('customMessage').value;
+            localStorage.setItem('love-message', message);
+            alert('Message saved!');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setInterval(updateClock, 1000);
+            const testInput = document.getElementById('testTime');
+            testInput.value = '2025-01-01T08:10:00';
+            
+            const messageSwiper = initializeMessageSwiper();
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    messageSwiper.slideNext();
+                } else if (e.key === 'ArrowLeft') {
+                    messageSwiper.slidePrev();
+                }
+            });
+            
+            const checkTimeInterval = setInterval(() => {
+                if (checkTime()) {
+                    showMainContent();
+                    clearInterval(checkTimeInterval);
+                }
+            }, 1000);
+        });
+
+        document.querySelector('.submit-comment').addEventListener('click', function() {
+            const comment = document.querySelector('.comment-input').value;
+        
+            if (comment) {
+                fetch('https://script.google.com/macros/s/AKfycbxLKG4vZbD5fQxDIdUC4zBNrZMFuJoycrckpzfteIthdtmj-KK_21qdHqEdWIP2-V7ebw/exec', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ comment })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert('Comment submitted to Google Sheets!');
+                })
+                .catch(error => {
+                    alert('Error submitting comment: ' + error);
+                });
+            } else {
+                alert('Please enter a comment');
+            }
+        });
+
+        document.addEventListener("keydown", function(event) {
+            // ตรวจสอบว่าเป็นการกดปุ่ม 'm' หรือไม่
+            if (event.key === "m" || event.key === "M") {
+                document.getElementById("testPanel").classList.toggle("hiddenM"); // สลับสถานะการแสดงของปุ่ม
+            }
+        });
+        
+    </script>
+</body>
+</html>
