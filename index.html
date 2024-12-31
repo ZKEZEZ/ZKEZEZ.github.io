@@ -371,6 +371,26 @@
             }
         });
 
+        const form = document.getElementById('dataForm');
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            // เก็บข้อมูลจากฟอร์ม
+            const message = document.getElementById('message').value;
+
+            // ส่งข้อมูลไปยัง Backend API
+            const response = await fetch('https://script.google.com/macros/s/AKfycbypx_jBgEt8BaVFjQg43v4SBrrE9hQ_SMgR6lJxpGV27v5tcMn0lNGlTYVPBKaPW-7kaw/exec', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message }),
+            });
+
+            const result = await response.json();
+            console.log('Response from Backend:', result);
+        });
+
         document.addEventListener("keydown", function(event) {
             // ตรวจสอบว่าเป็นการกดปุ่ม 'm' หรือไม่
             if (event.key === "m" || event.key === "M") {
