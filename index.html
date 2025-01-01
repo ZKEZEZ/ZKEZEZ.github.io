@@ -360,11 +360,20 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            const commentInput = document.getElementById('commentInput');
-            const submitButton = document.getElementById('submitComment');
-            const statusMessage = document.getElementById('statusMessage');
-            
-            submitButton.addEventListener('click', async function() {
+            const commentForm = document.createElement('form');
+            commentForm.id = 'commentForm';
+            commentForm.method = 'POST';
+            commentForm.target = 'hidden_iframe';
+            commentForm.action = 'https://script.google.com/macros/s/AKfycbymDt_vh-927UwcRvO2EppzFfWO_KQ3GeiSHwma-pjnKd5yq70hZs1cIpWcSuhHye5qVQ/exec';
+        
+            // สร้าง iframe สำหรับรับการตอบกลับ
+            const iframe = document.createElement('iframe');
+            iframe.name = 'hidden_iframe';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+        
+            submitButton.addEventListener('click', function(e) {
+                e.preventDefault();
                 const message = commentInput.value.trim();
                 
                 if (!message) {
@@ -372,49 +381,34 @@
                     return;
                 }
         
-                // สร้าง loading state
+                // แสดง loading
                 submitButton.disabled = true;
-                const originalButtonText = submitButton.innerHTML;
-                submitButton.innerHTML = 'กำลังส่ง... <div class="loading-spinner"></div>';
+                submitButton.textContent = 'กำลังส่ง...';
         
-                try {
-                    const CORS_PROXY = "https://cors-anywhere.herokuapp.com/";
-                    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGam03aR-6ihy-0o2hAoqZTx3qQn22c605qhP_IIXbpBgl-4RbakgacBvlE4ov1Ze00Q/exec";
-                    
-                    const response = await fetch(CORS_PROXY + SCRIPT_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Origin': 'https://zkezez.github.io'
-                        },
-                        body: JSON.stringify({ comment: message })
-                    });
-                
-                    const data = await response.json();
-                    
-                    if (data.status === 'success') {
-                        statusMessage.style.backgroundColor = '#dcfce7';
-                        statusMessage.style.color = '#166534';
-                        statusMessage.textContent = 'ส่งข้อความสำเร็จ! 😊';
-                        commentInput.value = '';
-                    } else {
-                        throw new Error(data.message || 'เกิดข้อผิดพลาด');
-                    }
-                } catch (error) {
-                    statusMessage.style.backgroundColor = '#fee2e2';
-                    statusMessage.style.color = '#991b1b';
-                    statusMessage.textContent = 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง';
-                    console.error('Error:', error);
-                } finally {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalButtonText;
-                    statusMessage.style.display = 'block';
-                    
-                    // ซ่อน status message หลังจาก 3 วินาที
-                    setTimeout(() => {
-                        statusMessage.style.display = 'none';
-                    }, 3000);
+                const formData = new FormData();
+                formData.append('comment', message);
+        
+                // ส่งข้อมูลผ่าน form
+                commentForm.innerHTML = '';
+                for (let pair of formData.entries()) {
+                    const input = document.createElement('input');
+                    input.type = 'hidden';
+                    input.name = pair[0];
+                    input.value = pair[1];
+                    commentForm.appendChild(input);
                 }
+                
+                document.body.appendChild(commentForm);
+                commentForm.submit();
+        
+                // รีเซ็ตฟอร์มหลังส่ง
+                setTimeout(() => {
+                    commentInput.value = '';
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'ส่งข้อความ';
+                    alert('ส่งข้อความเรียบร้อยแล้วค่ะ 😊');
+                    document.body.removeChild(commentForm);
+                }, 2000);
             });
         });
     </script>
