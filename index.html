@@ -360,18 +360,29 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Get reference to the submit button and comment input
+            const submitButton = document.getElementById('submitComment');
+            const commentInput = document.getElementById('commentInput');
+        
+            if (!submitButton || !commentInput) {
+                console.error('Comment form elements not found');
+                return;
+            }
+        
+            // Create the form element
             const commentForm = document.createElement('form');
             commentForm.id = 'commentForm';
             commentForm.method = 'POST';
             commentForm.target = 'hidden_iframe';
             commentForm.action = 'https://script.google.com/macros/s/AKfycbymDt_vh-927UwcRvO2EppzFfWO_KQ3GeiSHwma-pjnKd5yq70hZs1cIpWcSuhHye5qVQ/exec';
         
-            // สร้าง iframe สำหรับรับการตอบกลับ
+            // Create hidden iframe
             const iframe = document.createElement('iframe');
             iframe.name = 'hidden_iframe';
             iframe.style.display = 'none';
             document.body.appendChild(iframe);
         
+            // Add event listener to submit button
             submitButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 const message = commentInput.value.trim();
@@ -381,14 +392,15 @@
                     return;
                 }
         
-                // แสดง loading
+                // Show loading state
                 submitButton.disabled = true;
                 submitButton.textContent = 'กำลังส่ง...';
         
+                // Create and append form data
                 const formData = new FormData();
                 formData.append('comment', message);
         
-                // ส่งข้อมูลผ่าน form
+                // Reset the form HTML and add new inputs
                 commentForm.innerHTML = '';
                 for (let pair of formData.entries()) {
                     const input = document.createElement('input');
@@ -398,10 +410,11 @@
                     commentForm.appendChild(input);
                 }
                 
+                // Submit the form
                 document.body.appendChild(commentForm);
                 commentForm.submit();
         
-                // รีเซ็ตฟอร์มหลังส่ง
+                // Reset form after submission
                 setTimeout(() => {
                     commentInput.value = '';
                     submitButton.disabled = false;
