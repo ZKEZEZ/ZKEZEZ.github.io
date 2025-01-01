@@ -366,10 +366,12 @@
             }
         
             // ส่งข้อมูลไปยัง Backend (Google Apps Script URL)
-            fetch('https://script.google.com/macros/s/AKfycbwymzBVyC3oahTnjhY8lkMEtntUSP9IqZiEXFn7IjAEULdH5M9V5t5ZuOgkvum4XH8HRw/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbyQavoovh2Kc1_fzy2b14g0FVRG1vf1W9Gk_8-CanKMbaKTNO3H6ICKwdeRUX1UxJl0Ew/exec', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ comment: comment }), // ส่งข้อมูลในรูปแบบ JSON
+                mode: 'cors' // กำหนด mode ให้เป็น 'cors' เพื่อรองรับ CORS
+
             })
             .then(response => response.json())
             .then(data => {
