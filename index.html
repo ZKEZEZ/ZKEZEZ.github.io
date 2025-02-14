@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แมวน้อยนักจัดดอกไม้ 🌸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #fff5f5, #fff0f7);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .page {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .landing-page {
+            background: linear-gradient(135deg, #ffecf2, #fff9f9);
+            z-index: 3;
+            transform: translateX(0);
+        }
+
+        .shop-page {
+            background: linear-gradient(135deg, #fff5f5, #fff0f7);
+            z-index: 2;
+            transform: translateX(100%);
+        }
+
+        .chat-page {
+            background: linear-gradient(135deg, #fff5f5, #fff0f7);
+            z-index: 1;
+            transform: translateX(200%);
+        }
+
+        .landing-content {
+            text-align: center;
+            position: relative;
+        }
+
+        .cat-container {
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .cat {
+            width: 180px;
+            height: 180px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .cat-ears {
+            position: absolute;
+            top: -20px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .ear {
+            width: 40px;
+            height: 40px;
+            background: #f5f5f5;
+            border-radius: 50% 50% 0 0;
+            transform-origin: bottom;
+        }
+
+        .ear.left {
+            transform: rotate(-30deg);
+            animation: earWiggle 3s infinite;
+        }
+
+        .ear.right {
+            transform: rotate(30deg);
+            animation: earWiggle 3s infinite reverse;
+        }
+
+        @keyframes earWiggle {
+            0%, 100% { transform: rotate(-30deg); }
+            50% { transform: rotate(-40deg); }
+        }
+
+        .cat-face {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 60px;
+        }
+
+        .eyes {
+            display: flex;
+            justify-content: space-between;
+            width: 80px;
+            margin: 0 auto;
+        }
+
+        .eye {
+            width: 20px;
+            height: 20px;
+            background: #333;
+            border-radius: 50%;
+            animation: blink 4s infinite;
+        }
+
+        @keyframes blink {
+            0%, 96%, 98% { transform: scaleY(1); }
+            97% { transform: scaleY(0.1); }
+        }
+
+        .nose {
+            width: 12px;
+            height: 8px;
+            background: #ff9eb5;
+            border-radius: 50%;
+            margin: 10px auto;
+        }
+
+        .whiskers {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 20px;
+        }
+
+        .whisker {
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background: #ddd;
+            transition: transform 0.3s ease;
+        }
+
+        .whisker.left1 { transform: rotate(10deg); left: 0; top: 0; }
+        .whisker.left2 { transform: rotate(0deg); left: 5px; top: 8px; }
+        .whisker.left3 { transform: rotate(-10deg); left: 10px; top: 16px; }
+        .whisker.right1 { transform: rotate(-10deg); right: 0; top: 0; }
+        .whisker.right2 { transform: rotate(0deg); right: 5px; top: 8px; }
+        .whisker.right3 { transform: rotate(10deg); right: 10px; top: 16px; }
+
+        .cat:hover .whisker.left1 { transform: rotate(15deg); }
+        .cat:hover .whisker.left2 { transform: rotate(5deg); }
+        .cat:hover .whisker.left3 { transform: rotate(-5deg); }
+        .cat:hover .whisker.right1 { transform: rotate(-15deg); }
+        .cat:hover .whisker.right2 { transform: rotate(-5deg); }
+        .cat:hover .whisker.right3 { transform: rotate(5deg); }
+
+        .flowers-held {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+            animation: bobUpDown 3s infinite ease-in-out;
+        }
+
+        @keyframes bobUpDown {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        .welcome-text {
+            margin-top: 60px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .title {
+            font-size: 2.5rem;
+            color: #ff6b95;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 107, 149, 0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #ff9eb5;
+            margin-bottom: 30px;
+        }
+
+        .enter-button {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background: #ff6b95;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 149, 0.2);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .enter-button:hover {
+            background: #ff4d7d;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 149, 0.3);
+        }
+
+        .floating-flowers {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-flower {
+            position: absolute;
+            font-size: 24px;
+            animation: float 10s infinite ease-in-out;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            33% {
+                transform: translate(30px, -30px) rotate(120deg);
+            }
+            66% {
+                transform: translate(-30px, -60px) rotate(240deg);
+            }
+            100% {
+                transform: translate(0, -100vh) rotate(360deg);
+            }
+        }
+
+        .flower-shower {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            display: none;
+        }
+
+        .falling-flower {
+            position: absolute;
+            font-size: 24px;
+            animation: flowerFall 4s linear forwards;
+        }
+
+        @keyframes flowerFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Shop page styles */
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+        }
+
+        .shop-container {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(255, 182, 193, 0.2);
+            padding: 30px;
+        }
+
+        .flower-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .flower-item {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+
+        .flower-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(255, 182, 193, 0.3);
+        }
+
+        .flower-emoji {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .flower-name {
+            color: #ff6b95;
+            font-weight: 500;
+        }
+
+        /* Chat page styles */
+        .chat-container {
+            height: calc(100% - 60px);
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 20px;
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .chat-box {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 16px;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message.user {
+            align-items: flex-end;
+        }
+
+        .message.florist {
+            align-items: flex-start;
+        }
+
+        .message-content {
+            max-width: 80%;
+            padding: 12px;
+            border-radius: 16px;
+            box-shadow: 0 2px 4px rgba(255, 182, 193, 0.2);
+        }
+
+        .user .message-content {
+            background: rgba(255, 107, 149, 0.1);
+            color: #ff6b95;
+        }
+
+        .florist .message-content {
+            background: rgba(255, 182, 193, 0.1);
+            color: #ff6b95;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 16px;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 182, 193, 0.1);
+            color: #ff6b95;
+            font-size: 1rem;
+        }
+
+        .input-container input::placeholder {
+            color: rgba(255, 107, 149, 0.5);
+        }
+
+        .input-container button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            background: #ff6b95;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .input-container button:hover {
+            background: #ff4d7d;
+        }
+
+        #love-timer {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ff6b95;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 182, 193, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(255, 107, 149, 0.2);
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+    
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Page -->
+    <div class="page landing-page">
+        <div class="landing-content">
+            <div class="cat-container">
+                <div class="cat">
+                    <div class="cat-ears">
+                        <div class="ear left"></div>
+                        <div class="ear right"></div>
+                    </div>
+                    <div class="cat-face">
+                        <div class="eyes">
+                            <div class="eye"></div>
+                            <div class="eye"></div>
+                        </div>
+                        <div class="nose"></div>
+                    </div>
+                    <div class="whiskers">
+                        <div class="whisker left1"></div>
+                        <div class="whisker left2"></div>
+                        <div class="whisker left3"></div>
+                        <div class="whisker right1"></div>
+                        <div class="whisker right2"></div>
+                        <div class="whisker right3"></div>
+                    </div>
+                </div>
+                <div class="flowers-held">
+                    💐
+                </div>
+            </div>
+            <div class="welcome-text">
+                <h1 class="title">แมวน้อยนักจัดดอกไม้</h1>
+                <p class="subtitle">ยินดีต้อนรับสู่ร้านดอกไม้แสนพิเศษของเรา</p>
+                <button class="enter-button" onclick="enterShop()">เข้าสู่ร้าน 🌸</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shop Page -->
+    <div class="page shop-page">
+        <div class="container">
+            <div class="shop-container">
+                <h1 class="title" style="font-size: 2rem;">🌸 ร้านดอกไม้ 🌸</h1>
+                <p style="text-align: center; margin-bottom: 20px;">เลือกดอกไม้ที่คุณชอบเพื่อรับคำทำนาย</p>
+                <div class="flower-grid">
+                    <div class="flower-item" onclick="selectFlower('ดอกกุหลาบ', '🌹')">
+                        <div class="flower-emoji">🌹</div>
+                        <div class="flower-name">ดอกกุหลาบ</div>
+                    </div>
+                    <div class="flower-item" onclick="selectFlower('ดอกทานตะวัน', '🌻')">
+                        <div class="flower-emoji">🌻</div>
+                        <div class="flower-name">ดอกทานตะวัน</div>
+                    </div>
+                    <div class="flower-item" onclick="selectFlower('ดอกซากุระ', '🌸')">
+                        <div class="flower-emoji">🌸</div>
+                        <div class="flower-name">ดอกซากุระ</div>
+                    </div>
+                    <div class="flower-item" onclick="selectFlower('ดอกลิลลี่', '💐')">
+                        <div class="flower-emoji">💐</div>
+                        <div class="flower-name">ดอกลิลลี่</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Page -->
+    <div class="page chat-page">
+        <div class="chat-container">
+            <h1 class="title" style="font-size: 1.8rem;">💐 คุยกับแมวน้อยนักจัดดอกไม้ 💐</h1>
+            <div class="chat-box" id="chatBox"></div>
+            <div class="input-container">
+                <input type="text" id="messageInput" placeholder="พิมพ์ข้อความ...">
+                <button id="submitComment">ส่ง</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="flower-shower" id="flowerShower"></div>
+
+    <script>
+        const startDate = new Date('2025-01-01T00:00:00');
+        function updateLoveTimer() {
+            const now = new Date();
+            let diff = now - startDate;
+            
+            const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
+            diff -= months * (1000 * 60 * 60 * 24 * 30.44);
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            diff -= days * (1000 * 60 * 60 * 24);
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            diff -= hours * (1000 * 60 * 60);
+            const minutes = Math.floor(diff / (1000 * 60));
+            diff -= minutes * (1000 * 60);
+            const seconds = Math.floor(diff / 1000);
+    
+            document.getElementById('love-timer').innerText =
+                `คบกันมาแล้ว ${months} เดือน ${days} วัน ${hours} ชั่วโมง ${minutes} นาที ${seconds} วินาที`;
+        }
+    
+        setInterval(updateLoveTimer, 1000);
+        window.onload = updateLoveTimer;
+    
+        setInterval(updateLoveTimer, 1000);
+        window.onload = updateLoveTimer;
+
+        const flowerResponses = {
+            'ดอกกุหลาบ': {
+                welcome: 'เมี้ยวว~ ดอกกุหลาบสื่อถึงความรักที่งดงาม 🌹 วันนี้ใบหลิวดูมีเสน่ห์เป็นพิเศษเลยนะเมี้ยว',
+                meaning: 'ดอกกุหลาบแสดงถึงความรักที่ลึกซึ้ง ความหลงใหล และความปรารถนาดี',
+                question: 'อยากทราบจังเลยเมี้ยวว่าช่วงนี้มีเรื่องความรักอะไรที่ทำให้ใบหลิวยิ้มได้บ้างหรือมีเรื่องเครียดอะไรอยากเล่าให้แมวตัวนี้ฟังมั้ยเมี้ยว?'
+            },
+            'ดอกทานตะวัน': {
+                welcome: 'เมี้ยวว~ ดอกทานตะวันหันหน้าเข้าหาแสงอาทิตย์เสมอ 🌻 เหมือนคุณที่มองโลกในแง่ดีเลยนะ',
+                meaning: 'ดอกทานตะวันสื่อถึงความสดใส ความหวัง และพลังบวก ถึงบางคนมันจะหดเหี่ยวแต่มันก็กลับมาได้เสมอเลยนะ',
+                question: 'เมี้ยวอยากรู้จังว่าอะไรทำให้ใบหลิวมีความสุขที่สุดหรือมีเรื่องเครียดอะไรอยากเล่าให้แมวตัวนี้ฟังมั้ยเมี้ยว'
+            },
+            'ดอกซากุระ': {
+                welcome: 'เมี้ยวว~ ดอกซากุระบานสวยแต่บานไม่นาน 🌸 เหมือนช่วงเวลาดีๆที่ควรทำให้คุ้มค่าเลยนะ',
+                meaning: 'ดอกซากุระสื่อถึงการเริ่มต้นใหม่ ความสวยงาม',
+                question: 'ใบหลิวมีความฝันที่อยากทำไหมเมี้ยว~~ เล่าให้แมวตัวนี้ฟังได้นะ'
+            },
+            'ดอกลิลลี่': {
+                welcome: 'เมี้ยวว~ ดอกลิลลี่สวยสง่างามมากเลย 💐 เหมือนคุณที่ต้องมีความมั่นใจในตัวเองเยอะๆเข้าไว้นะ',
+                meaning: 'ดอกลิลลี่สื่อถึงความบริสุทธิ์ ความสง่างาม และความภูมิใจในตนเอง',
+                question: 'มีเรื่องอะไรที่ใบหลิวภูมิใจในตัวเองบ้างมั้ยยหรือมีเรื่องเครียดอะไรอยากเล่าให้แมวตัวนี้ฟังมั้ยเมี้ยว'
+            }
+        };
+
+        // Initialize GSAP animations
+        window.onload = function() {
+            // Animate welcome text
+            gsap.to('.welcome-text', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power2.out',
+                delay: 0.5
+            });
+
+            // Animate enter button
+            gsap.to('.enter-button', {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: 'power2.out',
+                delay: 0.8
+            });
+
+            // Create floating flowers
+            createFloatingFlowers();
+        };
+
+        function createFloatingFlowers() {
+            const flowers = ['🌸', '🌹', '🌺', '🌻', '🌼'];
+            const container = document.createElement('div');
+            container.className = 'floating-flowers';
+            
+            for (let i = 0; i < 15; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'floating-flower';
+                flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                flower.style.left = `${Math.random() * 100}vw`;
+                flower.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(flower);
+            }
+            
+            document.body.appendChild(container);
+        }
+
+        function createFlowerShower() {
+            const flowers = ['🌸', '🌹', '🌺', '🌻', '🌼'];
+            const container = document.getElementById('flowerShower');
+            container.style.display = 'block';
+            
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const flower = document.createElement('div');
+                    flower.className = 'falling-flower';
+                    flower.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                    flower.style.left = `${Math.random() * 100}vw`;
+                    container.appendChild(flower);
+                    
+                    // Remove flower after animation
+                    setTimeout(() => flower.remove(), 4000);
+                }, i * 100);
+            }
+        }
+
+        function enterShop() {
+            // Trigger flower shower
+            createFlowerShower();
+            
+            // Animate pages
+            gsap.to('.landing-page', {
+                x: '-100%',
+                duration: 1,
+                ease: 'power2.inOut'
+            });
+            
+            gsap.to('.shop-page', {
+                x: '0%',
+                duration: 1,
+                ease: 'power2.inOut'
+            });
+            
+            gsap.to('.chat-page', {
+                x: '100%',
+                duration: 1,
+                ease: 'power2.inOut'
+            });
+        }
+
+        function selectFlower(flowerName, emoji) {
+            // Store selected flower
+            localStorage.setItem('selectedFlower', flowerName);
+            localStorage.setItem('selectedEmoji', emoji);
+            
+            // Animate to chat page
+            gsap.to('.shop-page', {
+                x: '-100%',
+                duration: 1,
+                ease: 'power2.inOut'
+            });
+            
+            gsap.to('.chat-page', {
+                x: '0%',
+                duration: 1,
+                ease: 'power2.inOut',
+                onComplete: () => initChat(flowerName)
+            });
+        }
+
+        function initChat(flowerName) {
+            const chatBox = document.getElementById('chatBox');
+            const response = flowerResponses[flowerName];
+            
+            // Add welcome message
+            setTimeout(() => {
+                addMessage('florist', response.welcome);
+            }, 500);
+            
+            setTimeout(() => {
+                addMessage('florist', response.meaning);
+            }, 1500);
+            
+            setTimeout(() => {
+                addMessage('florist', response.question);
+            }, 2500);
+        }
+
+        function addMessage(sender, content) {
+            const chatBox = document.getElementById('chatBox');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const messageContent = document.createElement('div');
+            messageContent.className = 'message-content';
+            messageContent.textContent = content;
+            
+            messageDiv.appendChild(messageContent);
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Add animation to new message
+            gsap.from(messageDiv, {
+                y: 20,
+                opacity: 0,
+                duration: 0.5,
+                ease: 'power2.out'
+            });
+        }
+
+            // Add new summary page HTML after chat-page div
+        const summaryPageHTML = `
+            <div class="page summary-page" style="transform: translateX(300%);">
+                <div class="container">
+                    <div class="summary-container" style="background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 24px; padding: 30px; text-align: center; max-width: 600px;">
+                        <div class="selected-flower" style="font-size: 72px; margin-bottom: 20px; animation: bounce 2s infinite;"></div>
+                        <h2 class="flower-title" style="color: #ff6b95; font-size: 1.8rem; margin-bottom: 15px;"></h2>
+                        <p class="flower-description" style="color: #ff9eb5; font-size: 1.2rem; margin-bottom: 20px;"></p>
+                        <div class="flower-meaning" style="background: rgba(255, 182, 193, 0.1); padding: 20px; border-radius: 16px; margin-bottom: 20px;">
+                            <h3 style="color: #ff6b95; margin-bottom: 10px;">ความหมายของดอกไม้</h3>
+                            <p style="color: #ff9eb5;"></p>
+                        </div>
+                        <div id="love-timer"></div><br>
+                        <button class="restart-button" style="padding: 15px 40px; font-size: 1.2rem; background: #ff6b95; color: white; border: none; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255, 107, 149, 0.2);">
+                            เลือกดอกไม้ใหม่ 🌸
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Add CSS for summary page animations
+        const summaryStyles = `
+            @keyframes bounce {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-20px); }
+            }
+            
+            .summary-page {
+                background: linear-gradient(135deg, #fff5f5, #fff0f7);
+                z-index: 1;
+            }
+            
+            .restart-button:hover {
+                background: #ff4d7d;
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(255, 107, 149, 0.3);
+            }
+        `;
+
+        // Add the styles to the document
+        const styleSheet = document.createElement("style");
+        styleSheet.textContent = summaryStyles;
+        document.head.appendChild(styleSheet);
+
+        // Add summary page to the document
+        document.body.insertAdjacentHTML('beforeend', summaryPageHTML);
+
+        // Modify the handleSubmit function to show summary after 5 messages
+        let messageCount = 0;
+        const MAX_MESSAGES = 0;
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            const messageInput = document.getElementById('messageInput');
+            const submitButton = document.getElementById('submitComment');
+            const message = messageInput.value.trim();
+            
+            if (!message) {
+                alert('กรุณาพิมพ์ข้อความก่อนส่งนะเมี้ยว~');
+                return;
+            }
+
+            messageCount++;
+
+            // Show loading state
+            submitButton.disabled = true;
+            submitButton.textContent = 'กำลังส่ง...';
+
+            // Add user message to chat
+            addMessage('user', message);
+
+            // Submit to Google Scripts
+            const formData = new FormData();
+            formData.append('comment', message);
+            formData.append('flower', localStorage.getItem('selectedFlower') || '');
+            formData.append('emoji', localStorage.getItem('selectedEmoji') || '');
+
+            const commentForm = document.createElement('form');
+            commentForm.id = 'commentForm';
+            commentForm.method = 'POST';
+            commentForm.target = 'hidden_iframe';
+            commentForm.action = 'https://script.google.com/macros/s/AKfycbymDt_vh-927UwcRvO2EppzFfWO_KQ3GeiSHwma-pjnKd5yq70hZs1cIpWcSuhHye5qVQ/exec';
+
+            for (let pair of formData.entries()) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = pair[0];
+                input.value = pair[1];
+                commentForm.appendChild(input);
+            }
+            
+            document.body.appendChild(commentForm);
+            commentForm.submit();
+
+            // Generate cat response
+            setTimeout(() => {
+                const responses = [
+                    'เมี้ยววว~ น่าสนใจจังเลย! 🐱',
+                    'แมวเข้าใจความรู้สึกของคุณนะ 💕',
+                    'เมี้ยว! ดอกไม้ก็มีความรู้สึกเหมือนคุณเลยนะ 🌸',
+                    'อยากฟังเรื่องราวของคุณต่อจังเลยเมี้ยว~ 🐱',
+                    'เมี้ยว~ ขอบคุณที่แบ่งปันความรู้สึกนะ 💝'
+                ];
+
+                // If it's the last message, add a closing message
+                if (messageCount >= MAX_MESSAGES) {
+                    addMessage('florist', 'เมี้ยว~ ขอบคุณที่มาแบ่งปันเรื่องราวกับแมวนะ มีของขวัญพิเศษจะมอบให้ด้วย! ✨');
+                    
+                    // Show summary page after delay
+                    setTimeout(showSummary, 2000);
+                } else {
+                    const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                    addMessage('florist', randomResponse);
+                }
+            }, 1000);
+
+            // Reset form
+            setTimeout(() => {
+                messageInput.value = '';
+                submitButton.disabled = false;
+                submitButton.textContent = 'ส่ง';
+                if (document.getElementById('commentForm')) {
+                    document.body.removeChild(document.getElementById('commentForm'));
+                }
+            }, 2000);
+        }
+
+        function showSummary() {
+            const selectedFlower = localStorage.getItem('selectedFlower');
+            const selectedEmoji = localStorage.getItem('selectedEmoji');
+            
+            // Update summary page content
+            document.querySelector('.selected-flower').textContent = selectedEmoji;
+            document.querySelector('.flower-title').textContent = selectedFlower;
+            document.querySelector('.flower-description').textContent = `นี่คือดอกไม้ที่คุณเลือก`;
+            document.querySelector('.flower-meaning p').textContent = flowerResponses[selectedFlower].meaning;
+
+            // Create flower shower effect
+            createFlowerShower();
+
+            // Animate to summary page
+            gsap.to('.chat-page', {
+                x: '-100%',
+                duration: 1,
+                ease: 'power2.inOut'
+            });
+            
+            gsap.to('.summary-page', {
+                x: '0%',
+                duration: 1,
+                ease: 'power2.inOut'
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const submitButton = document.getElementById('submitComment');
+            const messageInput = document.getElementById('messageInput');
+
+            // Create hidden iframe
+            const iframe = document.createElement('iframe');
+            iframe.name = 'hidden_iframe';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+
+            // Add event listeners
+            submitButton.addEventListener('click', handleSubmit);
+            
+            messageInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    handleSubmit(e);
+                }
+            });
+        });
+
+        // Add restart functionality
+        document.querySelector('.restart-button').addEventListener('click', function() {
+            messageCount = 0;
+            
+            // Clear chat messages
+            document.getElementById('chatBox').innerHTML = '';
+            
+            // Return to shop page
+            gsap.to('.summary-page', {
+                x: '100%',
+                duration: 1,
+                ease: 'power2.inOut'
+            });
+            
+            gsap.to('.shop-page', {
+                x: '0%',
+                duration: 1,
+                ease: 'power2.inOut'
+            });
+        });
+
+    </script>
+</body>
+</html>
